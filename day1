@@ -1,0 +1,7 @@
+export input=$(cat input)
+
+echo "first chalenge"
+for i in $input; do for j in $input;do if [[ $(( $i + $j )) = 2020 ]]; then echo "match $i;$j; $(($i * $j))";break 2;fi;done;done
+
+echo "second chalenge"
+for i in $input;do for j in $input;do for k in $input;do if [[ $(( $i + $j + $k )) = 2020 ]]; then echo "match $i;$j;$k; $(($i*$j*$k))";break 3;fi;done;done;done
