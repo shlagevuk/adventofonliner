@@ -1,0 +1,6 @@
+
+
+IFS=$'\n';valid=0;for i in $(cat input); do range=$(echo $i | cut -d ' ' -f 1); range_min=$(echo $range|cut -d '-' -f 1); range_max=$(echo $range|cut -d '-' -f 2); letter=$(echo $i | cut -d ' ' -f 2|cut -d ':' -f 1);pass=$(echo $i | cut -d ' ' -f 3);numletter=0; for (( j=0; j<${#pass};j++));do if [[ "$letter" = "${pass:$j:1}" ]]; then numletter=$(( $numletter + 1 )) ;fi;  done ;echo -n " min: $range_min; $numletter; max: $range_max ; $letter ; $pass; $i "; if [[ $numletter -ge $range_min ]] && [[ $numletter -le range_max ]]; then echo -n "OK"; valid=$(( valid +1)); fi;echo; done; echo $valid
+
+
+ IFS=$'\n';valid=0;for i in $(cat input); do pos=$(echo $i | cut -d ' ' -f 1); pos1=$(echo $pos|cut -d '-' -f 1); pos1=$(( $pos1 - 1 )); pos2=$(echo $pos|cut -d '-' -f 2); pos2=$(( $pos2 -1)); letter=$(echo $i | cut -d ' ' -f 2|cut -d ':' -f 1);pass=$(echo $i | cut -d ' ' -f 3); if ([[ "$letter" = "${pass:$pos1:1}" ]] || [[ "$letter" = "${pass:$pos2:1}" ]]) &&  ( ! [[ "$letter" = "${pass:$pos1:1}" ]] || ! [[ "$letter" = "${pass:$pos2:1}" ]]) ; then valid=$((valid +1)) ;echo -n "ok";fi; echo " $pos1:${pass:$pos1:1}; $pos2:${pass:$pos2:1}; $letter ; $pass"; done; echo $valid
