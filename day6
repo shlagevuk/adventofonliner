@@ -1,0 +1,4 @@
+#part 1
+IFS=';';total=0;for i in $(cat day6.input | tr '\n' ';' | sed -r "s/([^;]);/\1/g"); do total=$(( total + $(for (( j=0;j<${#i};j++ )); do echo ${i:$j:1};done|sort|uniq|wc -l) ));done;echo $total
+#part 2
+total=0;users=0;answ="";while read -r line; do if [ "$line" = "" ]; then echo "end of group with nb_users:$users and answ:$answ";result=$(for (( i=0;i<${#answ};i++));do echo ${answ:$i:1};done |sort |uniq -c|grep "$users"|wc -l);echo $result;total=$((total +result)) ;answ="";users=0;continue;fi;echo "newuser answering: $line"; users=$((users+1));answ+=$line; done < day6.input ; echo "result is $total"
