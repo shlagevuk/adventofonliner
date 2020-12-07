@@ -1,0 +1,4 @@
+#part 1
+highest=0 ;while read -r line; do id=0;row=0;col=0;for (( i=0 ; i<${#line}; i++)); do if [[ "${line:$i:1}" = "B" ]];then row=$((row + ( 2 ** (6-$i) ) )); elif [[ "${line:$i:1}" = "R" ]]; then col=$((col + (2**(9-$i)) )); fi; done; id=$((row *8 +col)) ;echo "row: $row;col: $col; line: $line ; ID:$id"; if [[ "$highest" -lt "$id" ]];then highest=$id;fi; done < day5.input ;echo $highest
+#part 2
+ids="";while read -r line; do id=0;row=0;col=0;for (( i=0 ; i<${#line}; i++)); do if [[ "${line:$i:1}" = "B" ]];then row=$((row + ( 2 ** (6-$i) ) )); elif [[ "${line:$i:1}" = "R" ]]; then col=$((col + (2**(9-$i)) )); fi; done; id=$((row *8 +col)) ;echo "row: $row;col: $col; line: $line ; ID:$id";ids+=" $id"; done < day5.input ;ids=$(for id in $ids;do echo $id;done | sort -n) ; for id in $ids;do if [[ "$id" = "$low" ]]; then prev="$id" ; continue ; fi; if [[ "$prev" != "$((id -1))" ]]; then echo "trouvé $((id -1))";fi; prev="$id" ;done
